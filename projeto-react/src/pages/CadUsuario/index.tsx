@@ -1,16 +1,34 @@
-import React, { useState } from "react";
+import './../App.css';
+import usuarios from './../../data/usuarios.data.json';
+import { useParams, useNavigate } from 'react-router-dom';
 
-function Formulario(){
-    return(
-        <form>
-            <p> -- USUÁRIO -- </p>
+export default function CadUsuario() {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  let usuarioSelecionado = usuarios.find(item => item.id === id);
+
+  if (!usuarioSelecionado){
+    usuarioSelecionado = {
+        id: '',
+        nome: '',
+        email: ''
+    }       
+  }
+
+  return (
+    <>
+    <header className="App-header">
+    - Cadastro de Usuarios - 
+    </header>
+    <div className="App">
+       <form>
             <table>
                 <tr>
                     <td>
                         <label htmlFor="labelUsuarioId">*ID:&nbsp;</label>
                     </td>
                     <td>
-                        <input type="text" name="id" id="id" required></input>
+                        <input type="text" name="id" id="id" value={usuarioSelecionado.id} disabled></input>
                     </td>
                 </tr>
                 <tr>
@@ -20,7 +38,7 @@ function Formulario(){
                         </label>
                     </td>
                     <td>
-                        <input type="text" name="nome" id="nome">
+                        <input type="text" name="nome" id="nome" value={usuarioSelecionado.nome}>
                         </input>
                     </td>
                 </tr>
@@ -31,7 +49,7 @@ function Formulario(){
                         </label>
                     </td>
                     <td>
-                        <input type="text" name="email" id="email">
+                        <input type="text" name="email" id="email" value={usuarioSelecionado.email}>
                         </input>
                     </td>
                 </tr>
@@ -47,10 +65,10 @@ function Formulario(){
                     </td>
                 </tr>
             </table>
-            <input type="submit"></input>
-            <input type="reset"></input>
+            <input type="submit" value='Continuar'></input>
+            <input type="button" value='Limpar' onClick={() => navigate('/cadusuario')}></input>
         </form>
-    );
+    </div>
+    </>
+  );
 }
-
-export default Formulario;

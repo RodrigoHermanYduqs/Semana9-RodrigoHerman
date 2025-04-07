@@ -1,0 +1,17 @@
+[
+    {
+        "id": "7d513e8b-0043-46a5-836f-44af8c24ae16",
+        "nome": "Rodrigo",
+        "email": "rodrigo@mail.com"
+    },
+    {
+        "id": "104412c5-0a14-404d-84d5-086c77e59779",
+        "nome": "João",
+        "email": "joao@email.com"
+    },
+    {
+        "id": "edcb03da-8df1-4b9e-b934-c1a93da17185",
+        "nome": "José",
+        "email": "jose@email.com"
+    }
+]
