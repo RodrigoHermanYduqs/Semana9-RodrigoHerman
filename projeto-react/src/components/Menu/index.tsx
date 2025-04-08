@@ -7,11 +7,14 @@ export default function Menu(){
         label: 'Login',
         to: '/login'
       }, {
-        label: 'Cadastro de Usuários',
+        label: 'Cadastro Usuários',
         to: '/cadusuario'
       }, {
-        label: 'Lista de Usuários',
+        label: 'Lista Usuários',
         to: '/listausuario'
+      }, {
+        label: 'Cadastro Produtos',
+        to: '/cadproduto'
       }
     ];
 

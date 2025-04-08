@@ -1,0 +1,18 @@
+[
+    {
+        "id": "111",
+        "nome": "Figura de ação Marvel Homem Aranha Hasbro",
+        "valor": 70.0,
+        "quantidadeDisponivel": 10,
+        "descricao": "Produto novo, bem acabado, alegria para colecionadores",
+        "categoria": "Brinquedo"
+    },
+    {
+        "id": "222",
+        "nome": "Carrinho de madeira",
+        "valor": 20.0,
+        "quantidadeDisponivel": 5,
+        "descricao": "Feito com materiais natuais, para crianças de pouca idade.",
+        "categoria": "Brinquedo"
+    }
+]

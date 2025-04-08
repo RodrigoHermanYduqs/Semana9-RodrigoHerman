@@ -1,11 +1,11 @@
 import usuarios from './../../data/usuarios.data.json';
-import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './../App.css';
 
 export default function ListaUsuario(){
     //const [lista, setLista] = useState(usuarios);
     const lista = usuarios;
+    const navigate = useNavigate();
 
     return(
         <>
@@ -32,6 +32,7 @@ export default function ListaUsuario(){
                     ))}
                 </tbody>
                 </table>
+                <button className="botao" onClick={() => navigate(-1)}>{'< Voltar >'}</button>
             </div>
         </>
     );

@@ -1,17 +1,19 @@
 import './../App.css';
+import { UsuarioType } from '../../types/Usuario.type';
 import usuarios from './../../data/usuarios.data.json';
 import { useParams, useNavigate } from 'react-router-dom';
 
 export default function CadUsuario() {
   const { id } = useParams();
   const navigate = useNavigate();
-  let usuarioSelecionado = usuarios.find(item => item.id === id);
+  let usuarioSelecionado = usuarios.find(item => item.id === id) as UsuarioType;
 
   if (!usuarioSelecionado){
     usuarioSelecionado = {
         id: '',
         nome: '',
-        email: ''
+        email: '',
+        senha: ''
     }       
   }
 
@@ -65,8 +67,9 @@ export default function CadUsuario() {
                     </td>
                 </tr>
             </table>
-            <input type="submit" value='Continuar'></input>
-            <input type="button" value='Limpar' onClick={() => navigate('/cadusuario')}></input>
+            <input className='botao' type="submit" value='< Continuar >'></input>
+            <input className='botao'type="button" value='< Limpar >' onClick={() => navigate('/cadusuario')}></input>
+            <button className="botao" onClick={() => navigate(-1)}>{'< Voltar >'}</button>
         </form>
     </div>
     </>

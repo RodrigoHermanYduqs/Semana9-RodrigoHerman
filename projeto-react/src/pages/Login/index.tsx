@@ -31,8 +31,8 @@ export default function Login(){
                   </tr>
                 </tbody>
               </table>
-              <input type="submit" value='Continuar'></input>
-              <input type="reset" value='Limpar'></input>
+              <input type="submit" className="botao" value='< Continuar >'></input>
+              <input type="reset" className="botao" value='< Limpar >'></input>
           </form>
        </div>
        </>
