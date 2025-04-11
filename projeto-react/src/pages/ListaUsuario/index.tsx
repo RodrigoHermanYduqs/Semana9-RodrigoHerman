@@ -1,10 +1,24 @@
-import usuarios from './../../data/usuarios.data.json';
+//import usuarios from './../../data/usuarios.data.json'; // json estático
 import { Link, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import './../App.css';
+import IUsuario from '../../types/IUsuario';
+import conexao from '../../data/conexao';
 
 export default function ListaUsuario(){
-    //const [lista, setLista] = useState(usuarios);
-    const lista = usuarios;
+    // recupera o JSON ESTÁTICO
+    //const [lista, setLista] = useState<IUsuario[]>(usuarios) // usando state com interface 
+    //const [lista, setLista] = useState<UsuarioType[]>(usuarios) // usando state com TYPE em vez de interface
+    //const lista = usuarios; // estático 
+
+    // recupera via API 
+    const [lista, setLista] = useState<IUsuario[]>([]);
+
+    useEffect(() => {
+        conexao.get<IUsuario[]>('/usuarios')
+            .then(resposta => setLista(resposta.data))
+    }, [])
+
     const navigate = useNavigate();
 
     return(
