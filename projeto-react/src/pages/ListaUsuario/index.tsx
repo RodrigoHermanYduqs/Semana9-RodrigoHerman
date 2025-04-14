@@ -12,14 +12,22 @@ export default function ListaUsuario(){
     //const lista = usuarios; // estático 
 
     // recupera via API 
-    const [lista, setLista] = useState<IUsuario[]>([]);
+    const [listaUsuarios, setListaUsuarios] = useState<IUsuario[]>([]);
 
     useEffect(() => {
         conexao.get<IUsuario[]>('/usuarios')
-            .then(resposta => setLista(resposta.data))
+            .then(resposta => setListaUsuarios(resposta.data))
     }, [])
 
     const navigate = useNavigate();
+
+    const excluir = (usuarioExcluido: IUsuario) => {
+        conexao.delete(`usuarios/${usuarioExcluido.id}`)
+            .then(() => {
+                const usuarios = listaUsuarios.filter(usuario => usuario.id !== usuarioExcluido.id)
+                setListaUsuarios([...usuarios])
+            })
+    }
 
     return(
         <>
@@ -31,17 +39,21 @@ export default function ListaUsuario(){
                             <th>ID</th>
                             <th>NOME</th>
                             <th>EMAIL</th>
+                            <th> </th>
                         </tr>
                     </thead>
                 <tbody>
-                    {lista.map(item => (
+                    {listaUsuarios.map(item => (
                         <tr key={item.id}>
                             <td style={{textAlign: 'center', width: '40%'}}>              
                                 <Link className='App-link' to={`/cadusuario/${item.id}`}>
                                     {item.id}
                                 </Link></td>
-                            <td style={{textAlign: 'center', width: '40%'}}>{item.nome}</td>
+                            <td style={{textAlign: 'center', width: '30%'}}>{item.nome}</td>
                             <td style={{textAlign: 'center', width: '20%'}}>{item.email}</td>
+                            <td style={{textAlign: 'center', width: '20%'}}>
+                                <button className='botao' onClick={() => excluir(item)}>{'< Excluir >'}</button>
+                            </td>
                         </tr>
                     ))}
                 </tbody>
