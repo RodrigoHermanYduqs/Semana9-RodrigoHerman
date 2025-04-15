@@ -1,5 +1,5 @@
 import './../App.css';
-//import { UsuarioType } from '../../types/Usuario.type';
+//import { UsuarioType } from '../../types/Usuario.type'; // substitui o type por interface
 //import usuarios from './../../data/usuarios.data.json'; // json estático
 import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
@@ -8,7 +8,6 @@ import conexao from '../../data/conexao';
 
 
 export default function CadUsuario() {
-  //const { id } = useParams();
   const parametros = useParams();
   const navigate = useNavigate();
 
@@ -16,8 +15,6 @@ export default function CadUsuario() {
   const [nome, setNome] = useState('')
   const [email, setEmail] = useState('')
   const [senha, setSenha] = useState('')
-
-  //let usuarioSelecionado = usuarios.find(item => item.id === id) as UsuarioType; // json estático
 
   useEffect(() => {
         if (parametros.id) {
