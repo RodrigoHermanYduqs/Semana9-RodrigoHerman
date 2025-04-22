@@ -4,7 +4,7 @@ import './../App.css';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import conexao from '../../data/conexao';
-import IProduto from '../../types/IProduto';
+import IProduto from '../../interfaces/IProduto';
 
 export default function CadProduto(){
     const parametros = useParams();

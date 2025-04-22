@@ -1,3 +1,6 @@
+/**
+ * @deprecated Type Produto não é mais utilizado
+ */
 export type ProdutoType = {
     id: string;
     nome: string;

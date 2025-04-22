@@ -3,13 +3,17 @@ import './../App.css';
 //import usuarios from './../../data/usuarios.data.json'; // json estático
 import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import IUsuario from '../../types/IUsuario';
+import IUsuario from '../../interfaces/IUsuario';
 import conexao from '../../data/conexao';
+import { useRecoilState } from 'recoil';
+import { listaUsuariosState } from '../../state/atom';
 
 
 export default function CadUsuario() {
   const parametros = useParams();
   const navigate = useNavigate();
+
+  const [listaUsuarios, setListaUsuarios] = useRecoilState<IUsuario[]>(listaUsuariosState)
 
   const [id, setId] = useState('')
   const [nome, setNome] = useState('')
@@ -34,32 +38,58 @@ export default function CadUsuario() {
         setSenha('')
     }
 
-    const submeterForm = (evento: React.FormEvent<HTMLFormElement>) => {
-        evento.preventDefault()
-
+    const submeterForm = (eventos: React.FormEvent<HTMLFormElement>) => {
+        eventos.preventDefault()
+   
         if (parametros.id) {
+            const usuarioId = parametros.id;
+
             conexao.put(`usuarios/${parametros.id}/`, {
                 nome: nome,
                 email: email,
                 senha: senha
             }
             ).then(() => {
+                    setListaUsuarios(listaAntiga => {
+                        const indice = listaAntiga.findIndex(usr => usr.id === usuarioId)
+                        return [...listaAntiga.slice(0, indice), 
+                                {
+                                    id: usuarioId,
+                                    nome: nome,
+                                    email: email,
+                                    senha: senha
+                                }, 
+                                ...listaAntiga.slice(indice + 1)]
+                    })
+
                     alert("Usuário atualizado com sucesso!")
             })
             .catch( erro => alert(erro.message))
+
         } else {
             conexao.post('usuarios/', {
                 nome: nome,
                 email: email,
                 senha: senha
             })
-            .then(() => {
+            .then((response) => {
+                console.log(response.data.usuario.id)
+
+                setListaUsuarios(listaAntiga => [...listaAntiga, {
+                    id: response.data.usuario.id,
+                    nome: nome,
+                    email: email,
+                    senha: senha
+                }]) 
+
                 alert("Usuário cadastrado com sucesso!")
             })
             .catch( erro => alert(erro.message))
+
         }
 
         limpaForm()
+        navigate('/listausuario')
     }
 
   return (

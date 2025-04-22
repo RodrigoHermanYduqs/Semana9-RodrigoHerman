@@ -2,8 +2,10 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import './../App.css';
-import IUsuario from '../../types/IUsuario';
+import IUsuario from '../../interfaces/IUsuario';
 import conexao from '../../data/conexao';
+import { useRecoilState } from 'recoil';
+import { listaUsuariosState } from '../../state/atom';
 
 export default function ListaUsuario(){
     // recupera o JSON ESTÁTICO
@@ -12,12 +14,21 @@ export default function ListaUsuario(){
     //const lista = usuarios; // estático 
 
     // recupera via API 
-    const [listaUsuarios, setListaUsuarios] = useState<IUsuario[]>([]);
+    // useState padrão
+    //const [listaUsuarios, setListaUsuarios] = useState<IUsuario[]>([]);
+
+    // recoil
+    const [listaUsuarios, setListaUsuarios] = useRecoilState<IUsuario[]>(listaUsuariosState)
 
     useEffect(() => {
-        conexao.get<IUsuario[]>('/usuarios')
-            .then(resposta => setListaUsuarios(resposta.data))
+        // caso não tenha usuário no STATE, busca na API
+        if (listaUsuarios.length === 0){
+            conexao.get<IUsuario[]>('/usuarios')
+                .then(resposta => setListaUsuarios(resposta.data))
+        }
     }, [])
+
+    //console.log(listaUsuarios);
 
     const navigate = useNavigate();
 
